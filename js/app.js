@@ -89,26 +89,25 @@ const fruit = [
 function search(str) {
   let results = [];
   if (str.length > 0) {
-    results = fruit.filter((fruit) => {
-      return fruit.toLowerCase().includes(str.toLowerCase());
+    fruit.forEach((fruit) => {
+      if (fruit.toLowerCase().includes(str.toLowerCase())) {
+        results.push(fruit);
+      }
     });
-    return results;
-  } else {
-    return [];
   }
+  showSuggestions(results);
 }
 
 //filter searchHandler function
 const searchHandler = (e) => {
   const searchValue = e.target.value;
-  const results = search(searchValue);
-  showSuggestions(results);
+  search(searchValue);
 };
 
 //function to display the filtered array of fruits (suggestions)
 function showSuggestions(results) {
   suggestions.innerHTML = ''; //I put this to ensure any previous suggestions are cleared before displaying new ones
-  if (results) {
+  if (results.length > 0) {
     results.forEach((result) => {
       const li = document.createElement('li');
       li.textContent = result;
